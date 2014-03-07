@@ -36,25 +36,28 @@ For an automatic installation through WordPress:
 3.	Click 'Install Now' and activate the plugin.
 
 Manual Installation:
-1.	Download the latest version of 'Freshdesk Official'  plugin from the WordPress Plugin Directory.
-2.	Extract the zip and Upload the freshdesk_ext directory to your /wp-content/plugins directory
-3.	Go to the plugins management page and activate the plugin
-4.	You now have a new admin menu 'Freshdesk Official' in your WordPress admin menu bar. Click on it and Configure your settings as mentioned in the info comments in the screen.
+
+1.Download the latest version of 'Freshdesk Official' plugin from the WordPress Plugin Directory.
+2.Extract the zip and Upload the freshdesk_ext directory to your /wp-content/plugins directory
+3.Go to the plugins management page and activate the plugin
+4.You now have a new admin menu 'Freshdesk Official' in your WordPress admin menu bar.
+5.Click on it and Configure your settings as mentioned in the info comments in the screen.
 
 == Frequently Asked Questions ==
 
 1. Where do i find sso shared secret?
- SSO shared secret will be available in your helpdesk account's admin -> security -> sso section.
+SSO shared secret will be available in your helpdesk account's admin -> security -> sso section.
 
 2. How can login to my helpdesk using normal login screen after enabling sso?
- You can always access your help desk's normal login screen using http://yourcompany.freshdesk.com/login/normal link.
+You can always access your help desk's normal login screen using http://yourcompany.freshdesk.com/login/normal link.
 
 3. Where can I find the feedback widget code snippet ?
- Feedback widget code has to be copied from the admin -> feedback section. You can configure the alignment and kbase search hide and much more here and copy the generate code snippet.
+Feedback widget code has to be copied from the admin -> feedback section. You can configure the alignment and kbase search hide and much more here and copy the generate code snippet.
 
 == Screenshots ==
-1. This screen shot shows the plugin settings screen
-2. This screen shot shows the convert comments to tickets screen.
+Screenshot-1 This screen shot shows the plugin settings screen
+Screenshot-2 This screen shot shows the convert comments to tickets screen.
+Screenshot-3 This screen shot shows the converted comment having the view ticket links.
 
 == Changelog ==
 = 1.0 =
