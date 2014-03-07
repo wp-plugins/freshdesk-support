@@ -1,4 +1,4 @@
-=== Freshdesk ===
+=== Freshdesk Official===
 Contributors: hjohnpaul
 Donate link: 
 Tags: freshdesk, helpdesk, support tool
@@ -9,11 +9,11 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-Freshdesk plugin is a seamless way to add your helpdesk account to your website. Supports various useful functions.
+Freshdesk Official plugin is a seamless way to add your helpdesk account to your website. Supports various useful functions.
 
 ==Description==
 
-Freshdesk plugin enables users to achieve three important functions:
+Freshdesk Official plugin enables users to achieve three important functions:
 
 - Avoid additional login to helpdesk if the user has already logged in to WP(Single Sign On).
 - Effortlessly integrate the helpdesk' s feedback widget along with solutions search to his wordpress site.
@@ -31,16 +31,16 @@ Users with admin access to their Wordpress sites can convert comments into “Ti
 == Installation ==
 * For an automatic installation through WordPress
 1. Go to the 'Add New' plugins screen in your WordPress admin area.
-2. Search for 'Freshdesk' plugin.
+2. Search for 'Freshdesk Official' plugin.
 3. Click 'Install Now' and activate the plugin.
 
 
 Manual Installation:
 
-1. Download the latest version of 'Freshdesk'  plugin from the WordPress Plugin Directory.
-2. Extract the zip and Upload the freshdesk_ext directory to your /wp-content/plugins directory
+1. Download the latest version of 'Freshdesk Official'  plugin from the WordPress Plugin Directory.
+2. Extract the zip and Upload the freshdesk_support directory to your /wp-content/plugins directory
 3. Go to the plugins management page and activate the plugin
-4. You now have a new admin menu 'Freshdesk' in your WordPress admin menu bar. Click on it and Configure your settings as mentioned in the info comments in the screen.
+4. You now have a new admin menu 'Freshdesk Official' in your WordPress admin menu bar. Click on it and Configure your settings as mentioned in the info comments in the screen.
 
 == Frequently Asked Questions ==
 1. Where do i find sso shared secret ?
