@@ -19,26 +19,26 @@ Freshdesk Official plugin enables users to achieve three important functions:
 2. Effortlessly integrate the helpdesk' s feedback widget along with solutions search to his wordpress site.
 3. Allows the site admin to convert comments into helpdesk tickets.
 
-1. Single Sign On:
+Single Sign On:
 Users can now login to their helpdesk(freshdesk) support portal using Wordpress authentication. The single sign on feature ensures that users who have already logged into their Wordpress site can start working in their Freshdesk support portal as well without having to log in separately. 
 
-2. Feedback Pop-up Widget:
+Feedback Pop-up Widget:
 The plugin allows Wordpress users to have a Freshdesk feedback widget embedded in their wordpress site. The widget allows people visiting the site to provide feedback and search for answers.
 
-3. Convert Comments to Tickets on helpdesk:
+Convert Comments to Tickets on helpdesk:
 Users with admin access to their Wordpress sites can convert comments into “Tickets”. The marked comments are sent to the user’s support portal that can be solved or responded to later.
 
 == Installation ==
 For an automatic installation through WordPress:
 
-1.	Go to the 'Add New' plugins screen in your WordPress admin area.
-2.	Search for 'Freshdesk Official' plugin.
-3.	Click 'Install Now' and activate the plugin.
+1.Go to the 'Add New' plugins screen in your WordPress admin area.
+2.Search for 'Freshdesk Official' plugin.
+3.Click 'Install Now' and activate the plugin.
 
 Manual Installation:
 
 1.Download the latest version of 'Freshdesk Official' plugin from the WordPress Plugin Directory.
-2.Extract the zip and Upload the freshdesk_ext directory to your /wp-content/plugins directory
+2.Extract the zip and Upload the freshdesk-support directory to your /wp-content/plugins directory
 3.Go to the plugins management page and activate the plugin
 4.You now have a new admin menu 'Freshdesk Official' in your WordPress admin menu bar.
 5.Click on it and Configure your settings as mentioned in the info comments in the screen.
