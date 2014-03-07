@@ -56,9 +56,10 @@ Manual Installation:
   Feedback widget code has to be copied from the admin -> feedback section. You can configure the alignment and kbase search hide and much more here and copy the generate code snippet.
 
 == Screenshots ==
-1. Screenshot-1.png shows the plugin settings screen
-2. Screenshot-2.png shows the convert comments to tickets screen.
-3. Screenshot-3.png shows the view ticket link for the comments which is already converted to ticket.
+Screenshot-1.png
+Screenshot-2.png
+Screenshot-3.png 
+
 == Changelog ==
 = 1.0 =
 First Release Version.
