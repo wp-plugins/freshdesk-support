@@ -37,10 +37,10 @@ For an automatic installation through WordPress:
 
 Manual Installation:
 
-	1.	Download the latest version of 'Freshdesk'  plugin from the WordPress Plugin Directory.
-	2.	Extract the zip and Upload the freshdesk_ext directory to your /wp-content/plugins directory
-	3.	Go to the plugins management page and activate the plugin
-	4.	You now have a new admin menu 'Freshdesk' in your WordPress admin menu bar. Click on it and Configure your settings as mentioned in the info comments in the screen.
+1.	Download the latest version of 'Freshdesk'  plugin from the WordPress Plugin Directory.
+2.	Extract the zip and Upload the freshdesk_ext directory to your /wp-content/plugins directory
+3.	Go to the plugins management page and activate the plugin
+4.	You now have a new admin menu 'Freshdesk' in your WordPress admin menu bar. Click on it and Configure your settings as mentioned in the info comments in the screen.
 
 == Frequently Asked Questions ==
 1. Where do i find sso shared secret?
