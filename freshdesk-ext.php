@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Freshdesk Official
- * @version 1.0
+ * @version 1.1
  */
 /*
 Plugin Name: Freshdesk Official
 Plugin URI: 
 Description: Freshdesk Official is a seamless way to add your helpdesk account to your website. Supports various useful functions. 
 Author: hjohnpaul
-Version: 1.0
+Version: 1.1
 Author URI: http://freshdesk.com/
 */
 

@@ -61,16 +61,25 @@ Manual Installation:
 3. This shows the comments page with 'View Ticket' option showing if the comment is already converted to ticket.
 
 == Changelog ==
+= 1.1 =
+Latest revision. 
+Bug Fix:
+ - Freshdesk remote log-in failing for new users.
+ - Sign-out from freshdesk does not logout wordpress session. 
+
 = 1.0 =
 First Release Version.
 
 == Upgrade Notice ==
 
+== 1.1 ==
+Latest revision with bugs addressed.
+
+== 1.0 ==
 Wordpress single sign on.
 
 Feedback widget for wordpress site,Comes back as ticket.
 
 Converting wordpress comments into tickets.
 
-== 1.0 ==
 This is the First release version.
