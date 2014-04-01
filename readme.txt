@@ -63,6 +63,11 @@ Manual Installation:
 == Changelog ==
 = 1.0 =
 First Release Version.
+= 1.1 =
+Latest revision. 
+Bug Fix:
+ - Freshdesk remote log-in failing for new users.
+ - Sign-out from freshdesk does not logout wordpress session. 
 
 == Upgrade Notice ==
 
@@ -74,3 +79,6 @@ Converting wordpress comments into tickets.
 
 == 1.0 ==
 This is the First release version.
+
+== 1.1 ==
+Latest revision with bugs addressed.
