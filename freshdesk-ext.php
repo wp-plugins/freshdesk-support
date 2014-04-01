@@ -160,18 +160,32 @@ function validate_checkbox($input){
 //and css/js loader for settings and comments page.
 function fd_login(){
  	global $pagenow, $display_name , $user_email;
- 	if (( 'wp-login.php' == $pagenow ) && ($_GET['action'] == 'freshdesk-login' )) {
+ 	if ( 'wp-login.php' == $pagenow ){
+ 		if ($_GET['action'] == 'freshdesk-login' ) {
 		 	if ( is_user_logged_in() ){
 		      $current_user = wp_get_current_user();
 		      $freshdesk_options= get_option('freshdesk_options');
 		      $secret = $freshdesk_options['freshdesk_sso_key'];
 		      $user_name= $current_user->user_firstname.$current_user->user_lastname;
 		      $user_email = $current_user->user_email;
-		      $data = $username.$user_email."".time();
+          $data = $user_name.$user_email.time();
 		      $hash_key = hash_hmac("md5",$data,$secret);
 		      $url = freshdesk_sso_login_url($user_name,$user_email,$hash_key);
 					header( 'Location: '.$url ) ;	
 		 	}
+		 	else{
+		 		$freshdesk_options= get_option('freshdesk_options');
+		    $domain =$freshdesk_options['freshdesk_domain_url'];
+		    if (isset($domain)){
+		 			wp_redirect(htmlspecialchars_decode(wp_login_url()."?redirect_to=".$domain."/login"));
+	 				die();
+		 		}
+	 		}
+		}
+		if ($_GET['action'] == 'freshdesk-logout' ) {
+			wp_redirect(htmlspecialchars_decode(wp_logout_url()));
+			die();
+		}
  	}
  	if('edit-comments.php' == $pagenow ||  ($_GET['page'] == 'freshdesk-menu-handle')){
  		if (current_user_can( 'manage_options' )) {
@@ -196,9 +210,10 @@ function fd_login(){
 
   }
 
-  function freshdesk_sso_login($user_name,$email,$hash_key){
+  function freshdesk_sso_login_url($user_name,$email,$hash_key){
+    $freshdesk_options= get_option('freshdesk_options');
 		$domain =$freshdesk_options['freshdesk_domain_url'];
-  	return $domain."/login/sso?name=".$user_name."&email=".$email."&timestamp=".time()."&hash=".$hash_key;
+  	return $domain."/login/sso?name=".urlencode($user_name)."&email=".urlencode($email)."&timestamp=".time()."&hash=".urlencode($hash_key);
   }
 
   //Ajax Action handler. Freshdesk Ticket creation handled here.
