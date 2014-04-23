@@ -4,7 +4,7 @@ Donate link:
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,8 +61,11 @@ Manual Installation:
 3. This shows the comments page with 'View Ticket' option showing if the comment is already converted to ticket.
 
 == Changelog ==
+= 1.2 =
+	Latest Release
+ - Fix for the error message("The plugin does not have a valid header.") on enabling plugin 
 = 1.1 =
-Latest revision. 
+Previous revision. 
 Bug Fix:
  - Freshdesk remote log-in failing for new users.
  - Sign-out from freshdesk does not logout wordpress session. 
@@ -75,9 +78,10 @@ Wordpress single sign on.
 Feedback widget for wordpress site,Comes back as ticket.
 
 Converting wordpress comments into tickets.
-
+== 1.2 ==
+Latest Release:
+ Fix for the error message on enabling the plugin.
 == 1.1 ==
-Latest revision with bugs addressed.
-
+  Revision with bugs addressed.
 == 1.0 ==
 This is the First release version.
