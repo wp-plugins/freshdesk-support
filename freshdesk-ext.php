@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Freshdesk Official
- * @version 1.2
+ * @version 1.3
  */
 /*
 Plugin Name: Freshdesk Official
 Plugin URI: 
 Description: Freshdesk Official is a seamless way to add your helpdesk account to your website. Supports various useful functions. 
-Author: hjohnpaul
-Version: 1.2
+Author: hjohnpaul,sathishfreshdesk
+Version: 1.3
 Author URI: http://freshdesk.com/
 */
 
@@ -221,9 +221,11 @@ function fd_login(){
 		$id = $_POST['commentId'];
 
 		$comment = get_comment($id);
+		$comment_link = get_comment_link($comment,'all');
 		// echo "comment:".$id;
 		$email = $comment->comment_author_email;
 		$description = $comment->comment_content;
+		$description = $description . "<br/><br/><a href=" . htmlentities($comment_link) . ">Go to comment</a>";
 		$type = $comment->comment_type;
 		$comment_meta = $comment->comment_agent;
 		$comment_date = $comment->comment_date;

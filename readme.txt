@@ -1,10 +1,10 @@
 === Freshdesk Official===
-Contributors: hjohnpaul
+Contributors: hjohnpaul,sathishfreshdesk
 Donate link: 
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,7 @@ Freshdesk Official plugin enables users to achieve three important functions:
 - Avoid additional login to helpdesk if the user has already logged in to WP(Single Sign On).
 - Effortlessly integrate the helpdesk' s feedback widget along with solutions search to his wordpress site.
 - Allows the site admin to convert comments into helpdesk tickets.
+- Adding the comment link to ticket description.
 
 1. Single Sign On:
 Users can now login to their helpdesk(freshdesk) support portal using Wordpress authentication. The single sign on feature ensures that users who have already logged into their Wordpress site can start working in their Freshdesk support portal as well without having to log in separately. 
@@ -27,6 +28,9 @@ The plugin allows Wordpress users to have a Freshdesk feedback widget embedded i
 
 3. Convert Comments to Tickets on helpdesk:
 Users with admin access to their Wordpress sites can convert comments into “Tickets”. The marked comments are sent to the user’s support portal that can be solved or responded to later.
+
+4. Adding the comment link-back in the ticket added:
+   Comments converted to tickets in freshdesk will now have the link-back url to the actual comment in the wordpress site appended in its description.
 
 == Installation ==
 * For an automatic installation through WordPress
@@ -59,11 +63,13 @@ Manual Installation:
 1. This screen shot shows the Settings Screen.
 2. This shows the comments page where a new action('Convert to ticket') added to make the comment as a ticket.
 3. This shows the comments page with 'View Ticket' option showing if the comment is already converted to ticket.
+4. This shows the comment link in the ticket description.
 
 == Changelog ==
+= 1.3 =
+ Added comment link to ticket description
 = 1.2 =
-	Latest Release
- - Fix for the error message("The plugin does not have a valid header.") on enabling plugin 
+ Fix for the error message("The plugin does not have a valid header.") on enabling plugin 
 = 1.1 =
 Previous revision. 
 Bug Fix:
@@ -73,13 +79,11 @@ Bug Fix:
 First Release Version.
 
 == Upgrade Notice == 
-Wordpress single sign on.
-
-Feedback widget for wordpress site,Comes back as ticket.
 
 Converting wordpress comments into tickets.
+== 1.3 ==
+ Added comment link to ticket description.
 == 1.2 ==
-Latest Release:
  Fix for the error message on enabling the plugin.
 == 1.1 ==
   Revision with bugs addressed.
