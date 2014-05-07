@@ -14,7 +14,7 @@ private $apikey, $domain_url, $response, $response_status;
 
 	function create_ticket($email,$subject,$description){
 		$datafields =  array (
-     									"helpdesk_ticket" =>array("subject"=>$subject,"description"=>$description,"email"=>$email)
+     									"helpdesk_ticket" =>array("subject"=>$subject,"description_html"=>$description,"email"=>$email)
      								);
  		$jsondata= json_encode($datafields);
  		$this->make_request($this->domain_url."/helpdesk/tickets.json",$jsondata,$header);
