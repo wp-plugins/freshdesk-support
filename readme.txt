@@ -1,5 +1,5 @@
 === Freshdesk Official===
-Contributors: hjohnpaul,sathishfreshdesk
+Contributors: hjohnpaul, sathishfreshdesk, balakumars
 Donate link: 
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
@@ -66,6 +66,8 @@ Manual Installation:
 4. This shows the comment link in the ticket description.
 
 == Changelog ==
+= 1.4 =
+  Bug fix for SSO and Vanity URL redirect.
 = 1.3 =
  Added comment link to ticket description
 = 1.2 =
@@ -81,6 +83,8 @@ First Release Version.
 == Upgrade Notice == 
 
 Converting wordpress comments into tickets.
+== 1.4 ==
+  Bug fix for SSO and Vanity URL redirect.
 == 1.3 ==
  Added comment link to ticket description.
 == 1.2 ==
