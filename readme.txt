@@ -82,7 +82,7 @@ Bug Fix:
 = 1.0 =
 First Release Version.
 
-== Upgrade Notice ==
+== Upgrade Notice == 
    Includes vanity URL and SSO redirect.
 == 1.5 ==
   Fixing problem with 1.4 getting listed as development version.
