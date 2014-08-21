@@ -80,9 +80,7 @@ Bug Fix:
 = 1.0 =
 First Release Version.
 
-== Upgrade Notice == 
-
-Converting wordpress comments into tickets.
+== Upgrade Notice ==
 == 1.4 ==
   Bug fix for SSO and Vanity URL redirect.
 == 1.3 ==
