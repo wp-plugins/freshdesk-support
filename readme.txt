@@ -81,6 +81,7 @@ Bug Fix:
 First Release Version.
 
 == Upgrade Notice ==
+  Now works with SSO and Vanity URL.
 == 1.4 ==
   Bug fix for SSO and Vanity URL redirect.
 == 1.3 ==
