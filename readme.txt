@@ -4,7 +4,7 @@ Donate link:
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.4
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,8 @@ Manual Installation:
 4. This shows the comment link in the ticket description.
 
 == Changelog ==
+= 1.5 =
+  Includes fix for SSO and Vanity URL redirect.
 = 1.4 =
   Bug fix for SSO and Vanity URL redirect.
 = 1.3 =
@@ -81,6 +83,10 @@ Bug Fix:
 First Release Version.
 
 == Upgrade Notice ==
+   Includes vanity URL and SSO redirect.
+== 1.5 ==
+  Fixing problem with 1.4 getting listed as development version.
+  Includes bug fix for SSO and Vanity URL redirect.
 == 1.4 ==
   Bug fix for SSO and Vanity URL redirect.
   Now works with SSO and Vanity URL.
