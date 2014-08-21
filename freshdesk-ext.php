@@ -211,9 +211,13 @@ function fd_login(){
   }
 
   function freshdesk_sso_login_url($user_name,$email,$hash_key){
-    $freshdesk_options= get_option('freshdesk_options');
-		$domain =$freshdesk_options['freshdesk_domain_url'];
-  	return $domain."/login/sso?name=".urlencode($user_name)."&email=".urlencode($email)."&timestamp=".time()."&hash=".urlencode($hash_key);
+	$host_url = $_GET['host_url'];
+	$freshdesk_options= get_option('freshdesk_options');
+	$domain_url = $freshdesk_options['freshdesk_domain_url'];
+	$temp_array = explode(":",$domain_url);
+	$protocol = $temp_array[0]."://";
+	$domain = (empty($host_url) === true) ? $domain_url : $host_url; // Take the domain_url if host_url is null.
+	return $protocol.$domain."/login/sso?name=".urlencode($user_name)."&email=".urlencode($email)."&timestamp=".time()."&hash=".urlencode($hash_key);
   }
 
   //Ajax Action handler. Freshdesk Ticket creation handled here.
