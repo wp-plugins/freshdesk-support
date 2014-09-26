@@ -4,7 +4,7 @@ Donate link:
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,8 @@ Manual Installation:
 4. This shows the comment link in the ticket description.
 
 == Changelog ==
+= 1.6 =
+  Fix the SSO login redirect to Freshdesk and on wordpress logout, logout of Freshdesk as well.
 = 1.5 =
   Includes fix for SSO and Vanity URL redirect.
 = 1.4 =
@@ -82,8 +84,12 @@ Bug Fix:
 = 1.0 =
 First Release Version.
 
-== Upgrade Notice == 
-   Includes vanity URL and SSO redirect.
+== Upgrade Notice ==
+  Fix for SSO login redirect back to Freshdesk.
+  Change logout url to Freshdesk logout url so that Freshdesk is also logged out.
+== 1.6 ==
+  Fix for SSO login redirect back to Freshdesk.
+  Change logout url to Freshdesk logout url so that Freshdesk is also logged out.
 == 1.5 ==
   Fixing problem with 1.4 getting listed as development version.
   Includes bug fix for SSO and Vanity URL redirect.
