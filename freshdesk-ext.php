@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Freshdesk Official
- * @version 1.5
+ * @version 1.6
  */
 /*
 Plugin Name: Freshdesk Official
 Plugin URI: 
 Description: Freshdesk Official is a seamless way to add your helpdesk account to your website. Supports various useful functions. 
 Author: hjohnpaul,sathishfreshdesk,balakumars
-Version: 1.5
+Version: 1.6
 Author URI: http://freshdesk.com/
 */
 
@@ -23,9 +23,51 @@ add_action('init','fd_login'); //Sso handler and comment action handler
 add_action( 'admin_menu', 'freshdesk_plugin_menu' ); //Plugin Menu
 add_filter( 'comment_row_actions', 'freshdesk_comment_action', 10, 2 ); // This adds the comment action menu.
 add_action( 'wp_ajax_fd_ticket_action', 'fd_action_callback' ); // This is the ajax action handler
+add_filter('logout_url', 'fd_logout_url'); // For changing the logout url to point to Freshdesk.
+add_filter('login_redirect', 'fd_login_redirect', 10, 3 ); // This is used to redirect to Freshdesk on SSO.
 
 ?>
 <?php
+
+function fd_login_redirect( $url, $request, $user ){
+	$referrer_url = parse_url($_SERVER['HTTP_REFERER']);
+	$query = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_QUERY);
+	parse_str($query, $params);
+	$fd_redirect_to = $params['fd_redirect_to'];
+
+	// For handling Redirect to Freshdesk on login.
+	if ($fd_redirect_to && $_REQUEST['wp-submit'] == "Log In") {
+		$user_name = $user->data->display_name;
+		$freshdesk_options = get_option('freshdesk_options');
+		$secret = $freshdesk_options['freshdesk_sso_key'];
+		$data = $user_name.$user->data->user_email.time();
+		$hash_key = hash_hmac("md5", $data, $secret);
+		$ssl_url = $fd_redirect_to."/login/sso?name=".urlencode($user->data->display_name)."&email=".urlencode($user->data->user_email)."&timestamp=".time()."&hash=".urlencode($hash_key);
+		sleep(1); // holding a bit so that it falls within FD 30 mins bar.
+		header("Location: ".$ssl_url);
+		die();
+	}
+
+	//For handling direct Wordpress login.
+	if( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {
+		if( $user->has_cap( 'administrator' ) ) {
+			$url = admin_url();
+		} else {
+			$url = home_url();
+		}
+	}
+	return $url;
+}
+
+function fd_logout_url(){
+	$freshdesk_options= get_option('freshdesk_options');
+	$freshdesk_url = $freshdesk_options['freshdesk_domain_url'];
+	if($_REQUEST['host_url']) {
+		$freshdesk_url = get_domain_protocol()."://".$_REQUEST['host_url']; // case if it is a CNAME.
+	}
+	$fd_logout_url = $freshdesk_url."/logout";
+	return $fd_logout_url;
+}
 
 function freshdesk_plugin_menu(){
 	add_menu_page( 'Freshdesk Settings','Freshdesk','manage_options', 'freshdesk-menu-handle', 'freshdesk_settings_page');
@@ -162,7 +204,9 @@ function fd_login(){
  	global $pagenow, $display_name , $user_email;
  	if ( 'wp-login.php' == $pagenow ){
  		if ($_GET['action'] == 'freshdesk-login' ) {
+ 			// NOTE: is_user_logged_in dont't work during  [wp-submit] => Log In
 		 	if ( is_user_logged_in() ){
+			// For the case when user has already logged into Wordpress and then in another tab opens Freshdesk and click on login then he should be logged into FD with out entering credentials.
 		      $current_user = wp_get_current_user();
 		      $freshdesk_options= get_option('freshdesk_options');
 		      $secret = $freshdesk_options['freshdesk_sso_key'];
@@ -172,18 +216,29 @@ function fd_login(){
 		      $hash_key = hash_hmac("md5",$data,$secret);
 		      $url = freshdesk_sso_login_url($user_name,$user_email,$hash_key);
 					header( 'Location: '.$url ) ;	
-		 	}
-		 	else{
+			  die();
+			}
+		 	else{ // if wordpress is not logged in.
 		 		$freshdesk_options= get_option('freshdesk_options');
-		    $domain =$freshdesk_options['freshdesk_domain_url'];
+		    $domain = ($_REQUEST['host_url']) ? get_domain_protocol()."://".$_REQUEST['host_url'] : $freshdesk_options['freshdesk_domain_url']; // Redirect to the host url if host url option is present with the request.
 		    if (isset($domain)){
-		 			wp_redirect(htmlspecialchars_decode(wp_login_url()."?redirect_to=".$domain."/login"));
+		 			header("Location: " .wp_login_url()."?fd_redirect_to=".$domain);
 	 				die();
 		 		}
 	 		}
 		}
 		if ($_GET['action'] == 'freshdesk-logout' ) {
-			wp_redirect(htmlspecialchars_decode(wp_logout_url()));
+			$redirect_url = wp_login_url();
+			// Sometimes we get the http referer and some times don't so to find if it is coming from Freshdesk we do a two condition check and if one is satisfied then Freshdesk is the referer.
+			// Condition-1) Host url is a substring of http referer
+			// Condition-2) Host url exists and the http_referer is empty because request from within wordpress seems to always have a referer.
+			$condition_one = (strpos($_SERVER['HTTP_REFERER'], $_REQUEST['host_url']) !== FALSE) ? TRUE : FALSE;
+			$condition_two = ($_REQUEST['host_url'] && empty($_SERVER['HTTP_REFERER']));
+			if ($condition_one || $condition_two) {
+				$redirect_url = $redirect_url."?fd_redirect_to=".get_domain_protocol()."://".$_REQUEST['host_url'];
+			}
+			wp_logout();
+			header('Location: '.$redirect_url);
 			die();
 		}
  	}
@@ -210,12 +265,17 @@ function fd_login(){
 
   }
 
+	function get_domain_protocol() {
+		$freshdesk_options= get_option('freshdesk_options');
+		$domain_url = $freshdesk_options['freshdesk_domain_url'];
+		$temp_array = explode(":",$domain_url);
+		$protocol = $temp_array[0];
+		return $protocol;
+	}
+
   function freshdesk_sso_login_url($user_name,$email,$hash_key){
 	$host_url = $_GET['host_url'];
-	$freshdesk_options= get_option('freshdesk_options');
-	$domain_url = $freshdesk_options['freshdesk_domain_url'];
-	$temp_array = explode(":",$domain_url);
-	$protocol = $temp_array[0]."://";
+	$protocol = get_domain_protocol()."://";
 	$domain = (empty($host_url) === true) ? $domain_url : $host_url; // Take the domain_url if host_url is null.
 	return $protocol.$domain."/login/sso?name=".urlencode($user_name)."&email=".urlencode($email)."&timestamp=".time()."&hash=".urlencode($hash_key);
   }
