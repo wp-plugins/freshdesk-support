@@ -4,7 +4,7 @@ Donate link:
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
 Tested up to: 4.1.5
-Stable tag: 1.7
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,8 @@ Manual Installation:
 4. This shows the comment link in the ticket description.
 
 == Changelog ==
+= 1.8 =
+  Security fix for open redirect vulnerablity. Now users are required to configure all the portal urls in the settings page.
 = 1.7 =
   Added option to enable/disable sso.
   Logging out of wordpress no longer logs out the Freshdesk session.
@@ -90,10 +92,9 @@ Bug Fix:
 First Release Version.
 
 == Upgrade Notice ==
-  Added option to enable/disable sso.
-  Logging out of wordpress will no longer logout the Freshdesk session.
-  Added validations for the settings page.
-  Fixed the error showing up on the plugin settings page.
+  Security fix for open redirect vulnerablity. Now users are required to configure all the portal urls in the settings page.
+= 1.8 =
+  Security fix for open redirect vulnerablity. Now users are required to configure all the portal urls in the settings page.  
 == 1.7 ==
   Added option to enable/disable sso.
   Logging out of wordpress will no longer logout the Freshdesk session.
