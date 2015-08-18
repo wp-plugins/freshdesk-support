@@ -17,8 +17,8 @@ private $apikey, $domain_url, $response, $response_status;
      									"helpdesk_ticket" =>array("subject"=>$subject,"description_html"=>$description,"email"=>$email)
      								);
  		$jsondata= json_encode($datafields);
- 		$this->make_request($this->domain_url."/helpdesk/tickets.json",$jsondata,$header);
- 		if($this->response_status!= 200){
+ 		$this->make_request($this->domain_url."/helpdesk/tickets.json",$jsondata);
+ 		if($this->response_status!= 200 || empty( $this->response )){
  			return -1;
  		}
  		return $this->response;
@@ -42,9 +42,9 @@ private $apikey, $domain_url, $response, $response_status;
 		$server_output = curl_exec ($ch);
 
 		$fd_response = json_decode($server_output);
-		// echo "RESPONSE:<br/>".var_dump($this->response);
+
 		$this->response_status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
-		$this->response = $fd_response->{'helpdesk_ticket'}->{'display_id'};
+		$this->response = isset($fd_response->{'helpdesk_ticket'}->{'display_id'}) ? $fd_response->{'helpdesk_ticket'}->{'display_id'} : '';
 		curl_close ($ch);
 	}
 

@@ -19,12 +19,12 @@ jQuery(document).ready(function($){
 				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 			$.post(ajaxurl, data, function(response) {
 				resp = jQuery(response).find('response_data').text();
-				$(comment_link).text('View Ticket');
-				if(resp == -1){
-					alert('Got this from the server: ' + resp);
+				if(resp == -1 || resp == ""){
+					alert('Unable to create ticket on Freshdesk');
 				}
 				else{
-				$(comment_link).attr('ticket_id',resp);
+					$(comment_link).text('View Ticket');
+					$(comment_link).attr('ticket_id',resp);
 					confirm('Ticket #'+resp+' created Successfully.');
 				}
 
@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	if($('#freshdesk_enable_feedback')[0].checked){
+	if($('#freshdesk_enable_feedback')[0] && $('#freshdesk_enable_feedback')[0].checked){
 		toggle_feedback_widget();
 	}
 
@@ -43,7 +43,7 @@ jQuery(document).ready(function($){
 		toggle_feedback_widget();
 	});
 
-	if($('#freshdesk_enable_sso')[0].checked){
+	if( $('#freshdesk_enable_sso')[0] && $('#freshdesk_enable_sso')[0].checked){
 	 	toggle_sso();
 	}
 	$('#freshdesk_enable_sso').on('click',function(){
