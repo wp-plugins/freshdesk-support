@@ -1,14 +1,14 @@
 <?php
 /*
   @package Freshdesk Official
-  @version 1.8
+  @version 1.8.1
 */
 /*
   Plugin Name: Freshdesk Official
-  Plugin URI: 
+  Plugin URI:
   Description: Freshdesk Official is a seamless way to add your helpdesk account to your website. Supports various useful functions.
   Author: hjohnpaul,sathishfreshdesk,balakumars,shreyasns
-  Version: 1.8
+  Version: 1.8.1
   Author URI: http://freshdesk.com/
 */
 
@@ -35,13 +35,16 @@ add_action( 'admin_notices', 'freshdesk_admin_msgs' );
 <?php
 function show_login_message() {
 	$freshdesk_options= get_option('freshdesk_options');
-	if ( $freshdesk_options['freshdesk_enable_sso'] != 'checked' && $_GET['action'] == 'freshdesk-login' ){
+	if ( $freshdesk_options['freshdesk_enable_sso'] != 'checked' && isset( $_GET['action'] ) && $_GET['action'] == 'freshdesk-login' ){
 		//ToDO change the login message
 		return "<div style='padding:12px;border-left:4px solid #feba11; background:#fff; margin-bottom:4px'>We are not able to log you in, please contact your Wordpress administrator to enable SSO in your account.</div>";
 	}
 }
 function fd_login_redirect( $url, $request, $user ) {
 	parse_str( $request, $params );
+	if ( ! isset($params['fd_redirect_to']) ) {
+		return $url;
+	}
 	$fd_redirect_to = $params['fd_redirect_to'];
 	if ( ! $fd_redirect_to ) {
 		return $url;
@@ -49,9 +52,9 @@ function fd_login_redirect( $url, $request, $user ) {
 	$redirect_url = get_redirect_url( $fd_redirect_to );
 
 	// For handling Redirect to Freshdesk on login.
-	if ( $_REQUEST['wp-submit'] == "Log In" && is_a( $user, 'WP_User' ) && $redirect_url ) {
-		$freshdesk_options = get_option( 'freshdesk_options' );		
-		
+	if ( isset( $_REQUEST['wp-submit'] ) && $_REQUEST['wp-submit'] == "Log In" && is_a( $user, 'WP_User' ) && $redirect_url ) {
+		$freshdesk_options = get_option( 'freshdesk_options' );
+
 		$user_name = $user->data->display_name;
 		$secret = $freshdesk_options['freshdesk_sso_key'];
 		$data = $user_name.$user->data->user_email.time();
@@ -210,12 +213,11 @@ function validate_freshdesk_settings( $input ) {
 		}
 	}
 	$cname = trim($input['freshdesk_cname'] );
-	
+
 	$sso_secret = $input['freshdesk_sso_key'];
 	$api_key = $input['freshdesk_api_key'];
-	$enable_feedback = validate_checkbox( $input['freshdesk_enable_feedback'] );
-	$enable_sso = validate_checkbox( $input['freshdesk_enable_sso'] );
-	
+	$enable_sso = isset($input['freshdesk_enable_sso'] ) ? validate_checkbox( $input['freshdesk_enable_sso'] ) : '';
+
 	if ( ! $url ) {
 		add_settings_error(
 			'freshdesk_domain_url', // setting title
@@ -225,7 +227,7 @@ function validate_freshdesk_settings( $input ) {
 		);
 		$error=1;
 	}
-	
+
 	if ( ! $api_key ) {
 		add_settings_error(
 			'freshdesk_api_key', // setting title
@@ -235,7 +237,7 @@ function validate_freshdesk_settings( $input ) {
 		);
 		$error=1;
 	}
-	
+
 	if ( $enable_sso == 'checked' && ! $sso_secret ) {
 		add_settings_error(
 			'freshdesk_sso_key', // setting title
@@ -245,17 +247,18 @@ function validate_freshdesk_settings( $input ) {
 		);
 		$error=1;
 	}
-	
+
 	if ( $error ) {
 		return $freshdesk_options;
 	}
-	$settings = array( 'freshdesk_domain_url' => $url, 'freshdesk_cname' => $cname, 'freshdesk_enable_sso' => $enable_sso, 'freshdesk_sso_key' => $sso_secret, 'freshdesk_api_key' => $api_key, 'freshdesk_enable_feedback' => $enable_feedback );
-	
-	return $settings;	
+
+	$settings = array( 'freshdesk_domain_url' => $url, 'freshdesk_cname' => $cname, 'freshdesk_enable_sso' => $enable_sso, 'freshdesk_sso_key' => $sso_secret, 'freshdesk_api_key' => $api_key );
+
+	return $settings;
 }
 
 function validate_freshdesk_fb_settings( $input ) {
-	$enable_feedback = validate_checkbox( $input['freshdesk_enable_feedback'] );
+  $enable_feedback = isset($input['freshdesk_enable_feedback'] ) ? validate_checkbox( $input['freshdesk_enable_feedback'] ) : '';
 	$fb_widget_code = $input['freshdesk_fb_widget_code'];
 	$settings = array( 'freshdesk_fb_widget_code' => $fb_widget_code, 'freshdesk_enable_feedback' => $enable_feedback );
 	return $settings;
@@ -290,8 +293,10 @@ function fd_login() {
 	global $pagenow, $display_name , $user_email;
 	if ( 'wp-login.php' == $pagenow ){
 		$freshdesk_options = get_option( 'freshdesk_options' );
+		if ( ! isset( $_REQUEST['host_url'] ) || ! isset( $_GET['action'] )) {
+			return;
+		}
 		$domain = get_redirect_url($_REQUEST['host_url']);
-		error_log("Domain : $domain ");
 		if( ! $domain ) {
 			return;
 		}
@@ -309,11 +314,10 @@ function fd_login() {
 				$data = $user_name.$user_email.time();
 				$hash_key = hash_hmac( "md5", $data, $secret );
 				$url = freshdesk_sso_login_url( $domain, $user_name, $user_email ,$hash_key );
-				header( 'Location: '.$url ) ;	
+				header( 'Location: '.$url ) ;
 				die();
 			}
 			else{ // if wordpress is not logged in.
-				
 				if (isset($domain)){
 					header( "Location: " .wp_login_url()."?redirect_to=fd_redirect_to=".$domain );
 					die();
@@ -326,7 +330,8 @@ function fd_login() {
 			die();
 		}
 	}
-	if ( 'edit-comments.php' == $pagenow ||  ( $_GET['page'] == 'freshdesk-menu-handle' ) ){
+
+	if ( $pagenow == 'edit-comments.php' ||  ( isset( $_GET['page'] ) && $_GET['page'] == 'freshdesk-menu-handle' ) ) {
 		if ( current_user_can( 'manage_options' ) ) {
 			wp_enqueue_script( 'fd_plugin_js',FD_PLUGIN_URL . 'js/freshdesk_plugin_js.js', array( 'jquery' ) );
 			wp_localize_script( 'fd_plugin_js', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
@@ -355,7 +360,7 @@ function freshdesk_sso_login_url($domain, $user_name, $email, $hash_key){
 
 //Ajax Action handler. Freshdesk Ticket creation handled here.
 function fd_action_callback() {
-	$id = $_POST['commentId'];	
+	$id = $_POST['commentId'];
 	$comment = get_comment($id);
 	$comment_link = get_comment_link( $comment, 'all' );
 	$email = $comment->comment_author_email;
@@ -374,10 +379,11 @@ function fd_action_callback() {
 		'what'=>'helpdesk_ticket',
 		'action'=>'create',
 		'id'=>'1',
-		'data'=>$result
+		'data'=> $result
 	);
-	
-	$resp = add_comment_meta( $id, 'fd_ticket_id', $result, false );
+	if ( $result != -1 ) {
+		$resp = add_comment_meta( $id, 'fd_ticket_id', $result, false );
+	}
 	$xmlResponse = new WP_Ajax_Response( $response );
 	$xmlResponse->send();
 }
@@ -388,6 +394,9 @@ function freshdesk_show_msg( $message, $msgclass = 'info' ) {
 }
 
 function freshdesk_admin_msgs() {
+	if ( ! isset( $_GET['page'] ) ){
+		return;
+	}
 	// check for our settings page - need this in conditional further down
 	$wptuts_settings_pg = strpos( $_GET['page'], FD_PAGE_BASENAME );
 	// collect setting errors/notices: //http://codex.wordpress.org/Function_Reference/get_settings_errors

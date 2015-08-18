@@ -3,8 +3,8 @@ Contributors: hjohnpaul, sathishfreshdesk, balakumars, shreyasns
 Donate link: 
 Tags: freshdesk, helpdesk, support tool
 Requires at least: 3.4
-Tested up to: 4.1.5
-Stable tag: 1.8
+Tested up to: 4.3
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,8 @@ Manual Installation:
 4. This shows the comment link in the ticket description.
 
 == Changelog ==
+= 1.8.1 =
+  Fixed minor bugs.
 = 1.8 =
   Security fix for open redirect vulnerablity. Now users are required to configure all the portal urls in the settings page.
 = 1.7 =
@@ -92,8 +94,10 @@ Bug Fix:
 First Release Version.
 
 == Upgrade Notice ==
-  Security fix for open redirect vulnerablity. Now users are required to configure all the portal urls in the settings page.
-= 1.8 =
+  Fixed minor bugs.
+== 1.8.1 ==
+  Fixed minor bugs.
+== 1.8 ==
   Security fix for open redirect vulnerablity. Now users are required to configure all the portal urls in the settings page.  
 == 1.7 ==
   Added option to enable/disable sso.
